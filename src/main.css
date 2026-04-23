@@ -1,0 +1,49 @@
+/* KILL THE BROWSER GAPS */
+html, body, #root, .App {
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden; /* Prevents horizontal shaking */
+  background: linear-gradient(135deg, #1e1e2f, #2a2a3d);
+}
+
+
+
+/* --- GLOBAL PILL ARCHITECTURE --- */
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;      
+  height: calc(100vh - 25px); 
+  padding: 120px 0 20px; 
+  background: linear-gradient(135deg, #1e1e2f, #2a2a3d);
+  overflow: hidden; 
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.glass-pill {
+  background: #242424; 
+  width: 92%; 
+  max-width: 2000px;
+  
+  /* --- THE SPACING FIX --- */
+  aspect-ratio: 2 / 1;      
+  max-height: 75vh;        /* Reduced from 85vh to 75vh to force a bottom gap */
+  height: auto; 
+  
+  /* Use margin-top to push it down, and margin-bottom for the gap */
+  margin: 40px auto;       /* Adds 40px space top and bottom */
+  
+  padding: 35px 50px; 
+  border-radius: 60px; 
+  box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+  box-sizing: border-box; 
+  display: flex;
+  flex-direction: column; 
+  border: 1px solid #333;
+  transform: translateY(-10px)
+}

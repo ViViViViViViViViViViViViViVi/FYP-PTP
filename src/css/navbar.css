@@ -1,0 +1,168 @@
+/* ==========================================================================
+   1. Main Navigation Container 
+   ========================================================================== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #242424;
+  padding: 16px 28px; 
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 90%;
+  max-width: 1250px;
+  border-radius: 9999px; 
+  box-shadow: 0 5px 22px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+}
+
+
+.navbar .left,
+.navbar .right {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.navbar .right {
+  justify-content: flex-end;
+  gap: 16px; 
+}
+
+/* ==========================================================================
+   2. Centre Section (Static Title)
+   ========================================================================== */
+.navbar .center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+}
+
+
+.navbar-title-display {
+  color: #ffffff;
+  font-size: 18px; 
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ==========================================================================
+   3. Icons & Navigation Actions
+   ========================================================================== */
+.nav-icon, 
+.search-icon {
+  font-size: 29px; 
+  cursor: pointer;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.nav-icon:hover, 
+.search-icon:hover {
+  transform: scale(1.1);
+  color: #61dafb; 
+}
+
+/* ==========================================================================
+   4. Search & Dropdowns
+   ========================================================================== */
+.search-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-group.active {
+  background: #333;
+  padding: 5px 15px;
+  border-radius: 30px;
+}
+
+.nav-input {
+  background: transparent;
+  border: none;
+  color: white;
+  outline: none;
+  font-size: 16px;
+  width: 155px;
+}
+
+.stock-dropdown {
+  position: absolute;
+  top: 52px;
+  left: 0;
+  background: #242424;
+  border: 1px solid #444;
+  list-style: none;
+  padding: 8px 0;
+  width: 225px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  z-index: 2000;
+}
+
+.stock-dropdown li {
+  padding: 12px 20px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.stock-dropdown li:hover {
+  background: #be0e0e;
+}
+
+/* ==========================================================================
+   5. Profile Tab (Slide-out Logic)
+   ========================================================================== */
+.profile-tab {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border-radius: 30px;
+}
+
+.profile-tab.active {
+  background: #333;
+  padding-right: 15px;
+  gap: 12px;
+}
+
+.profile-tab-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.tab-username {
+  color: #61dafb;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.tab-link {
+  color: white;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.tab-logout-btn {
+  background: #be0e0e;
+  border: none;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}

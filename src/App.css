@@ -1,0 +1,10 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;             /* Force the container to be full width */
+  align-items: stretch;    /* THE MAGIC LINE: This forces children to hit the edges */
+  margin: 0;
+  padding: 0;
+}
+

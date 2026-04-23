@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:8.0
+    container_name: stock_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: user_system
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    ports:
+      - '3306:3306'
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: stock_phpmyadmin
+    restart: always
+    ports:
+      - '8080:80'
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db

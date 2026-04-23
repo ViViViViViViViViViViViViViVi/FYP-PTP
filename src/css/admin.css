@@ -1,0 +1,176 @@
+/* admin.css */
+
+/* 1. RESET & ROOT */
+.admin-container {
+  padding: 25px;
+  background: linear-gradient(135deg, #1e1e2f, #2a2a3d);
+  
+  /* FIX: Use 100dvh (Dynamic Viewport Height) to prevent mobile glitches */
+  height: 100vh;
+  width: 100%;             /* Changed from 100vw to 100% to prevent overflow */
+  overflow: hidden;        /* Keeps the dashboard locked in place */
+  
+  box-sizing: border-box;
+  color: #f8fafc;
+  font-family: 'Inter', system-ui, sans-serif;
+  
+  display: flex;
+  flex-direction: column;
+}
+
+/* 2. HEADER SECTION */
+.admin-main-header {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;    /* Changed to center for better vertical alignment */
+  margin-bottom: 25px;
+  border-bottom: 1px solid #334155;
+  padding-bottom: 15px;
+}
+
+.header-left h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: -0.025em;
+}
+
+.admin-subtitle {
+  margin: 4px 0 0 0;
+  color: #94a3b8;
+  font-size: 0.875rem;
+}
+
+.admin-logout-btn {
+  background: #334155;
+  color: white;
+  border: 1px solid #475569;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.admin-logout-btn:hover {
+  background: #ef4444;
+  border-color: #f87171;
+}
+
+/* 3. THE 2X2 COMMAND GRID */
+.admin-grid-2x2 {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+  padding-bottom: 10px;
+  min-height: 0;           /* CRITICAL: Allows grid items to shrink and scroll */
+}
+
+.admin-section {
+  background: #1e293b;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #334155;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;           /* Prevents the section from expanding past 50% height */
+}
+
+.section-pill {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+  width: fit-content;
+}
+
+
+
+/* 4. CONTENT AREAS (SCROLLABLE) */
+.log-list {
+  background: #020617;     /* Deeper black for console feel */
+  padding: 12px;
+  border-radius: 8px;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  color: #4ade80;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  flex-grow: 1;
+  overflow-y: auto;        /* Allows scrolling inside the console box only */
+  border: 1px solid #1e293b;
+}
+
+.trade-approval-list {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.admin-mini-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-mini-table th {
+  text-align: left;
+  color: #94a3b8;
+  padding: 10px;
+  border-bottom: 1px solid #334155;
+}
+
+.admin-mini-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #1e293b;
+}
+
+/* 5. BUTTONS & ACTIONS */
+.admin-actions-cell {
+  display: flex;
+  gap: 6px;
+}
+
+.view-btn, .auth-btn, .reject-btn {
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.view-btn { background: #475569; color: white; }
+.auth-btn { background: #10b981; color: white; }
+.reject-btn { background: #ef4444; color: white; }
+
+.view-btn:hover, .auth-btn:hover, .reject-btn:hover {
+  opacity: 0.8;
+}
+
+/* 6. STAT CARDS */
+.financial-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.financial-card h2 {
+  font-size: 2.8rem;
+  margin: 0;
+}
+
+.profit-up { color: #10b981; }
+.profit-down { color: #f87171; }
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #334155;
+}

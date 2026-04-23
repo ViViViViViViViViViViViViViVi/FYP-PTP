@@ -1,0 +1,110 @@
+/* THE MAIN CONTAINER */
+.welcome-pill {
+  display: flex;
+  flex-direction: column;
+  padding: 0 !important; 
+  overflow: hidden;
+  border: 1px solid #333;
+  background: #1a1a1a;
+
+}
+
+/* --- TOP SECTION: THE SPLIT HERO (75%) --- */
+.welcome-hero {
+  flex: 3;
+  display: flex; /* This creates the Vertical Split */
+  width: 100%;
+  border-bottom: 1px solid #333;
+}
+
+/* LEFT SIDE: LOGO FOCUS */
+.hero-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #202133;
+  border-right: 1px solid #333;
+}
+
+.big-logo {
+  width: 80%; /* Big impact logo */
+  height: auto;
+  
+  transition: transform 0.5s ease;
+}
+
+.big-logo:hover {
+  transform: scale(1.02);
+}
+
+/* RIGHT SIDE: TEXT & INFO */
+.hero-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 60px;
+  background: #1d1d1d;
+}
+
+.welcome-header {
+  font-size: 2.8rem;
+  letter-spacing: 12px;
+  font-weight: 200;
+  color: #fff;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.welcome-divider {
+  height: 2px;
+  width: 80px;
+  background: #202133;
+  margin: 20px 0;
+  box-shadow: 0 0 10px 202133;
+}
+
+.welcome-description {
+  font-family: 'Courier New', monospace;
+  color: #777;
+  font-size: 0.85rem;
+  line-height: 2;
+  letter-spacing: 1px;
+  max-width: 400px;
+}
+
+/* --- BOTTOM SECTION: THE 4 MODULES (25%) --- */
+/* THE BOTTOM CONTAINER */
+.welcome-modules {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111; /* Dark basement to contrast the hero */
+  border-top: 1px solid #333;
+}
+
+/* THE SIMPLE BUTTON */
+.continue-button {
+  background: #333;           /* Same grey as your borders */
+  color: #fff;                /* Simple white text */
+  border: none;               /* No border for a flat look */
+  padding: 12px 40px;
+  font-size: 0.8rem;
+  letter-spacing: 3px;        /* Spaced out letters for a "Pro" look */
+  cursor: pointer;
+  transition: background 0.2s; /* Fast, simple transition */
+  text-transform: uppercase;
+}
+
+/* SIMPLE HOVER */
+.continue-button:hover {
+  background: #444;           /* Just slightly lighter when hovering */
+}
+
+/* SIMPLE CLICK */
+.continue-button:active {
+  background: #222;           /* Darker when clicked */
+}
+

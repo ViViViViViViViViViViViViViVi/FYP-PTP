@@ -1,0 +1,227 @@
+/* ============================================================
+   1. LAYOUT WRAPPERS & CONTAINERS
+   ============================================================ */
+
+.learning-page-flex-content {
+  display: flex; 
+  gap: 30px; 
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: #ffffff; /* Global white text */
+}
+ 
+/* ============================================================
+   2. CHART AREA & HEADER
+   ============================================================ */
+
+.learning-page-graph-area {
+  flex: 3;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.ticker-header-flex {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.learning-page-ticker {
+  margin: 0;
+  color: #ffffff;
+}
+
+.learning-page-chart-container {
+  background: #1a1a1a;
+  flex-grow: 1;
+  border-radius: 50px;
+  border: 1px solid #333;
+  width: 100%; 
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+  outline: none;
+}
+
+.timeframe-selector-container {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 4px 10px;
+  border-radius: 10px;
+  border: 1px solid #333;
+}
+
+.timeframe-selector-container button {
+  background: transparent;
+  border: none;
+  color: #777;
+  padding: 4px 10px;
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.timeframe-selector-container button.active {
+  background: #ffffff; /* White active state */
+  color: #000000;      /* Black text */
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+/* ============================================================
+   3. STATS AREA & PANEL
+   ============================================================ */
+
+.learning-page-stats-area {
+  flex: 1;
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 50px;
+  border: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  overflow-y: auto; 
+  overflow-x: hidden;
+  scrollbar-width: thin; 
+  scrollbar-color: #444 #1a1a1a; 
+}
+
+.learning-page-details-box {
+  background: #111;
+  border-radius: 40px;
+  padding: 25px;
+  border: 1px solid #333;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   4. CONTROLS, SLIDERS & LEVERAGE
+   ============================================================ */
+
+.learning-page-control-box {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.learning-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: #333;
+  border-radius: 5px;
+}
+
+.learning-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  background: #ffffff; /* White thumb */
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #111;
+}
+
+.learning-vertical-slider-grid {
+  display: flex;
+  justify-content: space-around;
+  height: 150px; 
+  padding: 15px 0;
+  background: #111;
+  border-radius: 20px;
+  border: 1px solid #222;
+  margin: 5px 0;
+}
+
+.learning-slider-vertical {
+  appearance: slider-vertical;
+  height: 100px;
+  width: 10px;
+  background: #333;
+}
+
+.slider-value-display {
+  font-size: 10px;
+  color: #ffffff; /* White value */
+  font-weight: bold;
+}
+
+.learning-input {
+  background: #111;
+  border: 1px solid #444;
+  color: #fff;
+  padding: 8px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+/* ============================================================
+   5. ICONS & LABELS
+   ============================================================ */
+
+.label-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #cccccc;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.info-icon {
+  background: #444;
+  color: #fff;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  cursor: help;
+}
+
+.info-icon:hover {
+  background: #ffffff;
+  color: #000000;
+}
+
+/* ============================================================
+   6. RESULTS, STATUS & PROFIT/LOSS
+   ============================================================ */
+
+.learning-status-badge {
+  text-align: center;
+  padding: 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: bold;
+  background: #111;
+  border: 1px solid #ffffff; /* White border */
+  color: #ffffff;
+}
+
+.learning-profit-text {
+  font-size: 1.4rem; 
+  margin-top: 5px;
+  font-weight: 800;
+  color: #ffffff; /* Neutral White P/L */
+}
+
+.learning-profit-text.neg { color: #ff4d4d; } /* Keep Red for losses */
