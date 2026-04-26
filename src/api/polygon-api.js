@@ -29,12 +29,12 @@ export const getCandlestickData = async (symbol, range = "1M", apiKey = DEFAULT_
 
     if (data.results) {
       return data.results.map(item => ({
-        x: item.t,              // Unix Timestamp
+        x: item.t,              
         y: [
-          parseFloat(item.o),   // Open
-          parseFloat(item.h),   // High
-          parseFloat(item.l),   // Low
-          parseFloat(item.c)    // Close
+          parseFloat(item.o),   
+          parseFloat(item.h),   
+          parseFloat(item.l),   
+          parseFloat(item.c)    
         ]
       }));
     }

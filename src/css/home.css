@@ -5,7 +5,6 @@
   height: 100%;
 }
 
-/* --- Graph Section --- */
 .graph-section {
   flex: 2; 
   height: 100%;
@@ -33,7 +32,6 @@
   margin-top: 20px;
 }
 
-/* --- Stats and Info Section --- */
 .stats-section {
   flex: 1;
   display: flex;
@@ -50,14 +48,13 @@
 }
 
 .info-box {
-  flex: 1; /* Identity box height */
+  flex: 1; 
 }
 
 .profit-box {
-  flex: 1.2; /* Price/Action box height */
+  flex: 1.2; 
 }
 
-/* --- Centering Logic --- */
 .centered-content {
   display: flex;
   flex-direction: column;
@@ -72,7 +69,6 @@
   margin: 0;
 }
 
-/* --- Market Cap & Status Labels --- */
 .market-cap {
   color: #888;
   font-size: 14px;
@@ -90,7 +86,7 @@
 .status-label.afterhours { color: #ffa500; }
 .status-label.closed { color: #ff4d4d; }
 
-/* --- Price Section --- */
+
 .price-title {
   font-size: 16px;
   color: #888;
@@ -104,7 +100,7 @@
   margin: 10px 0;
 }
 
-/* --- Trading Buttons --- */
+
 .trade-actions {
   display: flex;
   gap: 15px;
@@ -129,7 +125,7 @@
   opacity: 0.8;
 }
 
-/* --- Global Market Tags --- */
+
 .global-status-container {
   display: flex;
   gap: 5px;

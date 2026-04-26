@@ -10,8 +10,6 @@ const db = await mysql.createConnection({
 
 console.log('Database Connected');
 
-// --- THE AUDIT ENGINE ---
-// Exporting this so any route can use it!
 export const logAction = async (userId, action, details) => {
   try {
     const sql = "INSERT INTO system_logs (user_id, action, details) VALUES (?, ?, ?)";

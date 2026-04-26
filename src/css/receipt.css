@@ -1,31 +1,22 @@
-/* ============================================================
-   1. GLOBAL WRAPPER & PILL CONTAINER
-   ============================================================ */
-
 .receipt-page-wrapper {
   padding-top: 80px; 
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh; 
-  
   box-sizing: border-box;
 }
 
 .receipt-pill-container {
   background: #1a1a1a;
-  width: 550px; /* Slightly wider for the 3-column dashboard */
-  padding: 0 0 40px 0; /* Padding handled by internal sections */
+  width: 550px; 
+  padding: 0 0 40px 0; 
   border-radius: 50px;
   border: 1px solid #333;
   overflow: hidden;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
   text-align: center;
 }
-
-/* ============================================================
-   2. TRADE TYPE HEADER (Dynamic Buy/Sell colors)
-   ============================================================ */
 
 .trade-type-header {
   padding: 25px 20px 15px 20px;
@@ -34,13 +25,11 @@
   text-transform: uppercase;
   font-size: 14px;
   margin-bottom: 20px;
-  color: #ffffff; /* White text */
-  background: transparent; /* No more tacky green/red background */
-  border-bottom: 1px solid #333; /* Clean separator line */
+  color: #ffffff; 
+  background: transparent; 
+  border-bottom: 1px solid #333; 
 }
-/* ============================================================
-   3. THE RISK DASHBOARD (3-Column Layout)
-   ============================================================ */
+
 
 .risk-dashboard {
   display: grid;
@@ -78,13 +67,8 @@
 .entry-value { font-size: 18px; font-weight: bold; color: #fff; margin: 5px 0; }
 .risk-subtext { font-size: 9px; color: #555; margin-top: 8px; text-transform: uppercase; }
 
-/* Icons specific colors */
 .risk-col.sl .risk-icon { color: #ff4444; }
 .risk-col.tp .risk-icon { color: #44ff44; }
-
-/* ============================================================
-   4. ORDER CONTROLS (Leverage & Quantity)
-   ============================================================ */
 
 .order-controls-grid {
   display: grid;
@@ -116,10 +100,6 @@
   font-weight: bold;
 }
 
-/* ============================================================
-   5. FINANCIAL HEALTH BOX (The "Teacher")
-   ============================================================ */
-
 .financial-health-box {
   background: #111;
   margin: 0 40px;
@@ -149,9 +129,6 @@
   font-style: italic;
 }
 
-/* ============================================================
-   6. ACTION BUTTONS
-   ============================================================ */
 
 .receipt-actions {
   padding: 0 40px;

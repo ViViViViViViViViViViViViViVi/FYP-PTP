@@ -16,8 +16,7 @@ import LearningPage from './pages/Learning_Page';
 import Admin from './pages/Admin';
 import Welcome from './pages/Welcome';
 import Settings from './pages/Settings';
-//import About from './pages/About';
-
+import AboutUs from './pages/About_Us'; 
 
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = localStorage.getItem('user_id'); 
@@ -25,7 +24,6 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
-// ADMIN
 const AdminRoute = ({ children }) => {
   const isAuthenticated = localStorage.getItem('user_id');
   const isAdmin = localStorage.getItem('is_admin') === 'true';
@@ -48,26 +46,27 @@ function App() {
     '/receipt': 'Receipt',
     '/learning': 'Learning Sandbox',
     '/admin': 'System Administration',
-    // '/about': 'About Us'
+    '/about': 'About Us', 
     '/welcome': 'Welcome',
     '/settings': 'Settings'
   };
 
   const pageName = pathMap[location.pathname] || 'Welcome';
   const isAdmin = localStorage.getItem('is_admin') === 'true';
-  const hideNavbarPaths = ['/admin', '/login', '/create-account','/welcome'];
+  const hideNavbarPaths = ['/admin', '/login', '/create-account', '/welcome', '/about']; 
+
   const shouldHideNavbar = hideNavbarPaths.includes(location.pathname);
 
   return (
     <div>
       {!shouldHideNavbar && <Navbar setSymbol={setSymbol} pageName={pageName} />}
       
-      
       <Routes>
         <Route path="/" element={<Navigate to="/welcome" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/create-account" element={<CreateAccount />} />
         <Route path="/welcome" element={<Welcome />} />
+        <Route path="/about" element={<AboutUs />} /> 
         
         <Route 
           path="/admin" 
@@ -114,13 +113,13 @@ function App() {
           } 
         />
         <Route 
-  path="/settings" 
-  element={
-    <ProtectedRoute>
-      {isAdmin ? <Navigate to="/admin" /> : <Settings />}
-    </ProtectedRoute>
-  } 
-/>
+          path="/settings" 
+          element={
+            <ProtectedRoute>
+              {isAdmin ? <Navigate to="/admin" /> : <Settings />}
+            </ProtectedRoute>
+          } 
+        />
       </Routes>
       <Footer />
     </div>

@@ -1,20 +1,18 @@
-
 .settings-pill {
-  flex-direction: row !important; /* Forces the 1/4 and 3/4 split horizontally */
-  padding: 0 !important;        /* Sidebar must hit the pill edges */
-  overflow: hidden;             /* Keeps the sidebar border-radius clean */
-  height: 100%;                 /* Fill the pill height */
+  flex-direction: row !important; 
+  padding: 0 !important;        
+  overflow: hidden;             
+  height: 100%;                 
 }
 
-/* --- LEFT SIDE: 1/4 DARK SIDEBAR --- */
 .settings-sidebar {
   flex: 1; 
-  background: #1a1a1a;          /* Slightly darker for depth */
+  background: #1a1a1a;          
   border-right: 1px solid #333;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 50px 30px;           /* Matched to your pill padding */
+  padding: 50px 30px;           
   box-sizing: border-box;
 }
 
@@ -73,16 +71,14 @@
   color: white;
 }
 
-/* --- RIGHT SIDE: 3/4 CONTENT AREA --- */
 .settings-content {
   flex: 3;
-  padding: 60px 80px;           /* Generous spacing for a "Pro" feel */
+  padding: 60px 80px;          
   background: #242424;
-  overflow-y: auto;             /* Allows scrolling if forms get long */
+  overflow-y: auto;             
   box-sizing: border-box;
 }
 
-/* Custom Scrollbar for Content */
 .settings-content::-webkit-scrollbar {
   width: 8px;
 }
@@ -104,7 +100,6 @@
   font-size: 1rem;
 }
 
-/* --- GRID & INPUTS --- */
 .settings-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -142,7 +137,6 @@
   border-color: #10b981;
 }
 
-/* --- SPECIAL BOXES --- */
 .security-verification-box {
   background: rgba(239, 68, 68, 0.03);
   padding: 30px;
@@ -164,7 +158,6 @@
   font-size: 1.2rem;
 }
 
-/* --- BUTTONS --- */
 .save-btn {
   background: #10b981;
   color: #000;

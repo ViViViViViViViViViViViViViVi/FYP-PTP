@@ -1,8 +1,3 @@
-
-/* ============================================================
-   2. TOP LEFT GREETING
-   ============================================================ */
-
 .user-firstname-title {
   color: white;
   font-size: 1.6rem;
@@ -20,10 +15,6 @@
   overflow: hidden;
 }
 
-/* ============================================================
-   3. PERFORMANCE DASHBOARD (FIXED STATS GAP)
-   ============================================================ */
-
 .performance-dashboard-panel {
   flex: 1;
   display: flex;
@@ -39,7 +30,6 @@
   letter-spacing: 1.5px;
 }
 
-/* FIXED: Explicitly removed gap and used border-left logic to prevent 2nd/3rd box gap */
 .stats-split-box {
   display: flex;
   gap: 0; 
@@ -57,7 +47,7 @@
   flex-direction: column;
   align-items: center;
   padding: 15px 5px;
-  border-left: 1px solid #2a2a2a; /* Use left border to ensure segments touch */
+  border-left: 1px solid #2a2a2a; 
 }
 
 .stat-segment:first-child { 
@@ -71,9 +61,6 @@
 .stat-segment.be .stat-value { color: #ffffff; }
 .stat-segment.lost .stat-value { color: #ff4d4d; }
 
-/* ============================================================
-   4. MILESTONE BAR (FIXED LABEL ALIGNMENT)
-   ============================================================ */
 
 .milestone-container {
   display: flex;
@@ -84,7 +71,6 @@
   border-radius: 20px;
 }
 
-/* FIXED: Labels now span the full width of the bar */
 .milestone-labels {
   display: flex;
   justify-content: space-between;
@@ -96,7 +82,6 @@
   box-sizing: border-box;
 }
 
-/* Pinning labels to Left, Middle, and Right */
 .milestone-labels span:nth-child(1) { text-align: left; flex: 1; }
 .milestone-labels span:nth-child(2) { text-align: center; flex: 1; }
 .milestone-labels span:nth-child(3) { text-align: right; flex: 1; }
@@ -116,10 +101,6 @@
 
 .milestone-subtext { font-size: 12px; color: #555; text-align: center; font-style: italic; }
 
-/* ============================================================
-   5. FINANCIAL SUMMARY
-   ============================================================ */
-
 .financial-summary-box {
   background: #1a1a1a;
   padding: 18px;
@@ -130,10 +111,6 @@
 
 .summary-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; color: #777; }
 .equity-total { font-weight: 900; font-size: 18px; color: #fff; margin-top: 10px; }
-
-/* ============================================================
-   6. ACCOUNT ACTIVITY (RIGHT PANEL)
-   ============================================================ */
 
 .table-section-profile {
   flex: 1.8;
@@ -231,11 +208,6 @@
 .loss-text, .sell-color { color: #ff4d4d; font-weight: 700; }
 
 
-/* ============================================================
-   7. AWAITING AUTHORISATION (NEW BUFFER STATES)
-   ============================================================ */
-
-/* --- Awaiting Authorisation Pill --- */
 .status-pill.awaiting-authorisation {
   background: rgba(255, 170, 0, 0.1);
   color: #ffaa00;
@@ -243,21 +215,19 @@
   box-shadow: 0 0 10px rgba(255, 170, 0, 0.1);
 }
 
-/* --- Row Styling for Pending Trades --- */
 .row-awaiting {
   background: rgba(255, 170, 0, 0.03) !important;
   transition: all 0.3s ease;
 }
 
 .row-awaiting td {
-  color: #888; /* Slightly fade non-essential text */
+  color: #888;
 }
 
 .row-awaiting td strong {
-  color: #ffaa00; /* Keep the asset symbol highlighted in gold */
+  color: #ffaa00; 
 }
 
-/* --- Pulse Animation for the Status Pill --- */
 @keyframes pendingPulse {
   0% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.7; transform: scale(0.98); }
@@ -266,10 +236,9 @@
 
 .row-awaiting .status-pill.awaiting-authorisation {
   animation: pendingPulse 2s infinite ease-in-out;
-  display: inline-block; /* Ensures animation works correctly */
+  display: inline-block; 
 }
 
-/* --- Admin Review Text (Optional) --- */
 .admin-review-text {
   font-size: 10px;
   color: #555;
