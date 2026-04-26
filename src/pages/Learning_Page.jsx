@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, CartesianGrid, ReferenceArea } from 'recharts';
 import '../css/learning_page.css';
 
-// --- EDUCATIONAL TOOLTIP CONTENT ---
+
 const infoData = {
   GENERAL: {
     title: "About this Sandbox",
@@ -51,7 +51,7 @@ const infoData = {
 function LearningPage({ symbol = "BTC/USD" }) {
   const [timeframe, setTimeframe] = useState('1m');
 
-  // --- 1. MASTER DATA (1-Minute Source of Truth) ---
+  // //FAKED DATA FOR SIMULATION 
   const masterData = [
     { time: '10:00', price: 100.00 }, { time: '10:01', price: 115.20 }, { time: '10:02', price: 130.80 },
     { time: '10:03', price: 155.50 }, { time: '10:04', price: 180.10 }, { time: '10:05', price: 210.90 },
@@ -76,7 +76,6 @@ function LearningPage({ symbol = "BTC/USD" }) {
     { time: '11:00', price: 140.50 }
   ];
 
-  // --- 2. CORE STATES ---
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(15);
   const [orderType, setOrderType] = useState('BUY');
@@ -85,10 +84,8 @@ function LearningPage({ symbol = "BTC/USD" }) {
   const [takeProfit, setTakeProfit] = useState(250);
   const [breakEven, setBreakEven] = useState(100);
   const [detailsView, setDetailsView] = useState({ active: false, type: 'GENERAL' });
-
   const entryPrice = masterData[startIndex]?.price || 100;
 
-  // --- 3. FLIP & BOUNDARY SYNC ---
   useEffect(() => {
     const currentTPDist = Math.abs(takeProfit - breakEven);
     const currentSLDist = Math.abs(stopLoss - breakEven);
@@ -109,7 +106,6 @@ function LearningPage({ symbol = "BTC/USD" }) {
     if (breakEven > maxBound) setBreakEven(maxBound);
   }, [takeProfit, stopLoss]);
 
-  // --- 4. DATA MEMOIZATION ---
   const chartData = useMemo(() => {
     return masterData.map((d, index) => ({ ...d, index })).filter((d, i) => {
       if (timeframe === '1m') return true;
@@ -144,8 +140,7 @@ function LearningPage({ symbol = "BTC/USD" }) {
     <div className="page-wrapper">
       <div className="glass-pill">
         <div className="learning-page-flex-content">
-          
-          {/* VISUAL CHART AREA */}
+
           <div className="learning-page-graph-area">
             <div className="ticker-header-flex">
               <h3 className="learning-page-ticker">{symbol} Sandbox</h3>
@@ -158,12 +153,8 @@ function LearningPage({ symbol = "BTC/USD" }) {
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#333" />
                   <XAxis dataKey="index" type="number" domain={[0, 60]} hide />
                   <YAxis domain={[40, 260]} orientation="right" stroke="#888" tick={{ fill: '#ffffff', fontSize: 10 }} />
-                  
-                  {/* RISK/REWARD VISUAL AREAS */}
                   <ReferenceArea x1={startIndex} x2={endIndex} y1={breakEven} y2={takeProfit} fill="#00ff00" fillOpacity={0.12} />
                   <ReferenceArea x1={startIndex} x2={endIndex} y1={stopLoss} y2={breakEven} fill="#ff0000" fillOpacity={0.12} />
-                  
-                  {/* ADJUSTABLE INTERFACE LINES */}
                   <ReferenceArea x1={startIndex} x2={endIndex} y1={takeProfit - 0.5} y2={takeProfit + 0.5} fill="#00ff00" />
                   <ReferenceArea x1={startIndex} x2={endIndex} y1={stopLoss - 0.5} y2={stopLoss + 0.5} fill="#ff4d4d" />
                   <ReferenceArea x1={startIndex} x2={endIndex} y1={breakEven - 0.6} y2={breakEven + 0.6} fill="#ffffff" />
@@ -183,7 +174,6 @@ function LearningPage({ symbol = "BTC/USD" }) {
             </div>
           </div>
 
-          {/* EDUCATIONAL CONTROLS & FEEDBACK */}
           <div className="learning-page-stats-area">
             {detailsView.active ? (
               <div className="learning-page-details-box">

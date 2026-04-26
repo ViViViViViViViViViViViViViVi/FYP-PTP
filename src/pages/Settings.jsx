@@ -10,7 +10,6 @@ const Settings = () => {
   const [profileData, setProfileData] = useState({ fullName: '', email: '', dob: '' });
   const [securityData, setSecurityData] = useState({ petName: '', lastFourPhone: '', currentPassword: '', newPassword: '' });
 
-  // 1. LOAD USER ON MOUNT
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
@@ -18,12 +17,13 @@ const Settings = () => {
       setProfileData({
         fullName: user.name || '',
         email: user.email || '',
-        dob: user.dob ? user.dob.split('T')[0] : '' // Formats date for HTML input
+        dob: user.dob ? user.dob.split('T')[0] : ''
       });
     }
   }, []);
 
-  // 2. UPDATE PROFILE LOGIC
+
+  // UPDATE PROFILE
   const handleUpdateProfile = async () => {
     try {
       const response = await fetch(`http://localhost:5000/api/settings/update-profile/${userId}`, {
@@ -34,7 +34,6 @@ const Settings = () => {
       const data = await response.json();
       if (response.ok) {
         alert("Profile synchronised successfully.");
-        // Update local storage so the header name changes too
         const user = JSON.parse(localStorage.getItem('user'));
         localStorage.setItem('user', JSON.stringify({ ...user, name: profileData.fullName, email: profileData.email, dob: profileData.dob }));
       } else {
@@ -43,7 +42,8 @@ const Settings = () => {
     } catch (err) { alert("Server connection failed."); }
   };
 
-  // 3. PASSWORD CHANGE LOGIC (The Security Handshake)
+
+  // PASSWORD CHANGE
   const handlePasswordChange = async () => {
     try {
       const response = await fetch(`http://localhost:5000/api/settings/change-password/${userId}`, {
@@ -54,14 +54,15 @@ const Settings = () => {
       const data = await response.json();
       if (response.ok) {
         alert("Security credentials rotated successfully.");
-        setSecurityData({ petName: '', lastFourPhone: '', currentPassword: '', newPassword: '' }); // Clear form
+        setSecurityData({ petName: '', lastFourPhone: '', currentPassword: '', newPassword: '' });
       } else {
         alert(data.error);
       }
     } catch (err) { alert("Security server offline."); }
   };
 
-  // 4. NUCLEAR OPTION (Delete Account)
+
+  // DELETE ACCOUNT
   const handleDeleteAccount = async () => {
     if (window.confirm("CRITICAL: This will purge all identity and portfolio data. Proceed?")) {
       try {

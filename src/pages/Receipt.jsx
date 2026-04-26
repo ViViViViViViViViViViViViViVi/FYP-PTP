@@ -5,11 +5,8 @@ import '../css/receipt.css';
 const Receipt = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  
-  // 1. DATA INITIALISATION
   const { symbol, price: rawPrice, type } = location.state || { symbol: "BTC", price: 60000, type: "BUY" };
   const price = parseFloat(rawPrice); 
-  
   const [balance, setBalance] = useState(0);
   const [quantity, setQuantity] = useState(1); 
   const [leverage, setLeverage] = useState(1);
@@ -18,7 +15,6 @@ const Receipt = () => {
 
   const currentUserId = localStorage.getItem('user_id');
 
-  // 2. FETCH LIVE BALANCE
   useEffect(() => {
     const fetchLiveAccount = async () => {
       if (!currentUserId) return;
@@ -29,7 +25,6 @@ const Receipt = () => {
           const liveBalance = parseFloat(data.balance);
           setBalance(liveBalance);
           
-          // Initialise SL/TP once balance is known
           const riskAmount = liveBalance * 0.05;
           const priceMove = riskAmount / quantity;
           const initialSL = type === 'BUY' ? (price - priceMove) : (price + priceMove);
@@ -42,9 +37,8 @@ const Receipt = () => {
       }
     };
     fetchLiveAccount();
-  }, [currentUserId, price, type]); // Runs once on mount to set initial levels
+  }, [currentUserId, price, type]);
 
-  // 3. LIVE CALCULATIONS
   const totalValue = useMemo(() => (price * quantity).toFixed(2), [price, quantity]);
   const marginRequired = useMemo(() => (totalValue / leverage).toFixed(2), [totalValue, leverage]);
   
@@ -60,33 +54,41 @@ const Receipt = () => {
     return (diff * quantity).toFixed(2);
   }, [price, takeProfit, quantity]);
 
-  // 4. TRADE EXECUTION
 
+  // TRADE EXECUTION
   const handleTrade = async () => {
-  const tradeData = {
-    user_id: currentUserId,
-    symbol: symbol,
-    type: type,
-    entry_price: price,
-    quantity: quantity,
-    risk_score: ((parseFloat(maxLoss) / balance) * 100).toFixed(2)
-  };
+    const token = localStorage.getItem('token'); 
 
-  try {
-    const response = await fetch('http://localhost:5000/api/receipt/submit-to-buffer', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(tradeData)
-    });
+    const tradeData = {
+      user_id: currentUserId,
+      symbol: symbol,
+      type: type,
+      entry_price: price,
+      quantity: quantity,
+      risk_score: ((parseFloat(maxLoss) / balance) * 100).toFixed(2)
+    };
 
-    if (response.ok) {
-      alert("Trade sent to Admin Buffer. Awaiting Authorization.");
-      navigate('/profile');
+    try {
+      const response = await fetch('http://localhost:5000/api/receipt/submit-to-buffer', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
+        },
+        body: JSON.stringify(tradeData)
+      });
+
+      if (response.ok) {
+        alert("Trade sent to Admin Buffer.");
+        navigate('/profile');
+      } else if (response.status === 401) {
+        alert("Session expired. Please login again.");
+        navigate('/login');
+      }
+    } catch (err) {
+      console.error("Buffer Error:", err);
     }
-  } catch (err) {
-    console.error("Buffer Error:", err);
-  }
-};
+  };
 
   return (
     <div className="receipt-page-wrapper">
@@ -95,8 +97,6 @@ const Receipt = () => {
         <div className={`trade-type-header ${type.toLowerCase()}`}>
           {type} {symbol} NOW
         </div>
-
-        {/* SECTION 1: THE RISK DASHBOARD */}
         <div className="risk-dashboard">
           <div className="risk-col sl">
             <span className="risk-label">STOP LOSS</span>
@@ -125,7 +125,6 @@ const Receipt = () => {
           </div>
         </div>
 
-        {/* SECTION 2: THE ORDER CONTROLS */}
         <div className="order-controls-grid">
           <div className="control-item">
             <label>Leverage (Multiplier)</label>
@@ -146,7 +145,6 @@ const Receipt = () => {
           </div>
         </div>
 
-        {/* SECTION 3: FINANCIAL HEALTH */}
         <div className="financial-health-box">
           <div className="health-row">
             <span>Available Balance:</span>

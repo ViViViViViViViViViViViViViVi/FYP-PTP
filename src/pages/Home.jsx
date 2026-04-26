@@ -8,7 +8,7 @@ import { logUserAction } from '../server/request_server';
 
 import '../css/home.css';
 
-// HELPER UTILITIES
+
 const getMarketStatus = (hour, mins, day) => {
   const isWeekend = (day === 0 || day === 6);
   if (isWeekend) return "CLOSED";
@@ -17,10 +17,9 @@ const getMarketStatus = (hour, mins, day) => {
   return "CLOSED";
 };
 
+
 function Home({ symbol, user }) {
   const navigate = useNavigate();
-  
-  // State Management
   const [stockPrice, setStockPrice] = useState(0);
   const [marketStatus, setMarketStatus] = useState("CLOSED");
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -28,15 +27,8 @@ function Home({ symbol, user }) {
   const [globalMarkets, setGlobalMarkets] = useState({ 
     sydney: "CLOSED", tokyo: "CLOSED", london: "CLOSED", newYork: "CLOSED" 
   });
-  const [refreshTrigger, setRefreshTrigger] = useState(0); // Used to kick the chart every min
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
-  // LIVE CLOCK (Updates every second for the UI)
-  useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  // 1. PRIMARY DATA FETCH (Company Details & Market Status) - Runs every 30s
   const fetchDashboardData = useCallback(async () => {
     if (!symbol) return;
 
@@ -68,7 +60,7 @@ function Home({ symbol, user }) {
     }
   }, [symbol]);
 
-  // 2. RAPID PRICE FETCH - Runs every 2s
+
   const fetchPriceOnly = useCallback(async () => {
     if (!symbol) return;
     try {
@@ -81,19 +73,17 @@ function Home({ symbol, user }) {
     }
   }, [symbol]);
 
-  // MANAGING THE TIMERS
+
+
   useEffect(() => {
-    // Initial calls
     fetchDashboardData();
     fetchPriceOnly();
 
-    // Timer 1: The "Big Number" (2 seconds)
     const priceTimer = setInterval(fetchPriceOnly, 2000);
 
-    // Timer 2: The "Metadata & Graph Trigger" (30 seconds)
     const dashboardTimer = setInterval(() => {
       fetchDashboardData();
-      setRefreshTrigger(prev => prev + 1); // This will tell StockChart to update
+      setRefreshTrigger(prev => prev + 1);
     }, 30000);
 
     return () => {
@@ -101,6 +91,7 @@ function Home({ symbol, user }) {
       clearInterval(dashboardTimer);
     };
   }, [fetchDashboardData, fetchPriceOnly]);
+
 
   const handleTrade = (type) => {
     navigate('/receipt', { 
@@ -124,7 +115,6 @@ function Home({ symbol, user }) {
             </div>
 
             <div className="placeholder-chart">
-              {/* Added refreshTrigger so the graph knows when 30s has passed */}
               <StockChart symbol={symbol} key={`${symbol}-${refreshTrigger}`} />
             </div>
           </div>

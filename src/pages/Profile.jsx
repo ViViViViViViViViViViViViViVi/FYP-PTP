@@ -2,9 +2,9 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import '../css/profile.css';
 
 const Profile = () => {
-  // --- STATE MANAGEMENT ---
+
   const [transactions, setTransactions] = useState([]);
-  const [bufferTrades, setBufferTrades] = useState([]); // Buffer for trades waiting for Admin
+  const [bufferTrades, setBufferTrades] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterStatus, setFilterStatus] = useState('ALL');
   const [userData, setUserData] = useState({ 
@@ -14,9 +14,9 @@ const Profile = () => {
   });
 
   const currentUserId = localStorage.getItem('user_id');
-  const FINNHUB_KEY = 'd5qgpspr01qhn30fjr20d5qgpspr01qhn30fjr2g';
+  const FINNHUB_KEY = 'X';
 
-  // --- 1. DATA FETCHING (Unified Stream) ---
+
   const fetchProfileData = useCallback(async () => {
     if (!currentUserId || currentUserId === "undefined") {
       setLoading(false);
@@ -55,11 +55,10 @@ const Profile = () => {
     fetchProfileData();
   }, [fetchProfileData]);
 
-  // --- 2. ANALYTICS ENGINE ---
+
   const stats = useMemo(() => {
     let won = 0, be = 0, lost = 0, moneyWon = 0, moneyLost = 0;
 
-    // We only calculate stats for executed transactions
     transactions.forEach(t => {
       const pnl = (parseFloat(t.profit_loss) || 0) * (parseInt(t.quantity) || 1);
       const outcome = t.outcome || (pnl > 0 ? 'WIN' : pnl < 0 ? 'LOSS' : 'NEUTRAL');
@@ -74,14 +73,14 @@ const Profile = () => {
 
   const progressWidth = Math.min((userData.totalWins / 50) * 100, 100);
 
-  // --- 3. POSITION MANAGEMENT ---
+
   const handleClosePosition = async (trade) => {
     try {
       const priceRes = await fetch(`https://finnhub.io/api/v1/quote?symbol=${trade.symbol}&token=${FINNHUB_KEY}`);
       const priceData = await priceRes.json();
       const liveExitPrice = priceData.c;
 
-      const response = await fetch(`http://localhost:5000/api/close-position/${trade.transaction_id}`, {
+      const response = await fetch(`http://localhost:5000/api/profile/close-position/${trade.transaction_id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ exit_price: liveExitPrice })
@@ -96,9 +95,9 @@ const Profile = () => {
     }
   };
 
-  // --- 4. MASTER FILTER & MERGE LOGIC ---
+
+
   const allDisplayTrades = useMemo(() => {
-    // Map buffer trades to include the UK status and unique ID
     const pending = bufferTrades.map(t => ({ 
       ...t, 
       status: 'AWAITING AUTHORISATION', 
@@ -107,7 +106,8 @@ const Profile = () => {
     return [...pending, ...transactions];
   }, [bufferTrades, transactions]);
 
- // DEBUGGED FILTER LOGIC
+
+  // FILTER LOGIC
   const filteredTransactions = useMemo(() => {
     return allDisplayTrades.filter(t => {
       const status = (t.status || '').toUpperCase().trim();

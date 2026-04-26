@@ -4,21 +4,14 @@ import '../css/admin.css';
 
 const Admin = () => {
 
-  // ============================================================
-  // SECTION 1: STATE MANAGEMENT
-  // Holds all live data. Each piece maps to your database tables.
-  // ============================================================
   const navigate = useNavigate();
-  const [bufferTrades, setBufferTrades] = useState([]);      // From 'pending_transactions'
-  const [logs, setLogs] = useState([]);                      // From 'system_logs'
-  const [users, setUsers] = useState([]);                    // From 'users'
+  const [bufferTrades, setBufferTrades] = useState([]);      
+  const [logs, setLogs] = useState([]);                      
+  const [users, setUsers] = useState([]);                    
   const [stats, setStats] = useState({ totalProfit: 0, totalUsers: 0 }); 
 
 
-  // ============================================================
-  // SECTION 2: DATA FETCHING & LIVE SYNC
-  // Now uses the updated /admin prefixed routes.
-  // ============================================================
+  // DATA FETCHING & LIVE SYNC
   const refreshDashboard = useCallback(async () => {
     try {
       const [bufferRes, logsRes, usersRes, statsRes] = await Promise.all([
@@ -49,10 +42,7 @@ const Admin = () => {
   }, [refreshDashboard]);
 
 
-  // ============================================================
-  // SECTION 3: AUDIT / SECURITY INSPECTOR
-  // Remains the same for local UI alerts.
-  // ============================================================
+  // ADUIT TRADE DETAILS
   const handleViewTrade = (trade) => {
     alert(`
       --- BUFFER SECURITY AUDIT ---
@@ -66,10 +56,7 @@ const Admin = () => {
   };
 
 
-  // ============================================================
-  // SECTION 4: TRADE APPROVAL GATEWAY
-  // Updated to look for { result.error } instead of status codes.
-  // ============================================================
+// TRADE AUTHORISATION 
   const authorizeTrade = async (id) => {
     if (!window.confirm(`Authorize trade #${id}?`)) return;
 
@@ -83,8 +70,8 @@ const Admin = () => {
       if (result.error) {
         alert(`Failed: ${result.error}`);
       } else {
-        console.log("✅ ORDER_AUTHORISED");
-        refreshDashboard(); // Instant refresh
+        console.log("ORDER_AUTHORISED");
+        refreshDashboard();
       }
     } catch (err) {
       alert("Network Error: Could not connect to the server.");
@@ -92,10 +79,7 @@ const Admin = () => {
   };
 
 
-  // ============================================================
-  // SECTION 5: TRADE REJECTION GATEWAY
-  // Uses the specific /admin/reject-buffer-trade route.
-  // ============================================================
+  // TRADE REJECTION 
   const rejectTrade = async (id) => {
     if (!window.confirm("Reject and delete this trade?")) return;
 
@@ -109,27 +93,22 @@ const Admin = () => {
       if (result.error) {
         alert(`Reject Failed: ${result.error}`);
       } else {
-        console.log("✅ ORDER_REJECTED");
+        console.log("ORDER_REJECTED");
         refreshDashboard();
       }
     } catch (err) {
-      console.error("❌ Network Error during rejection:", err);
+      console.error("Network Error during rejection:", err);
     }
   };
 
 
-  // ============================================================
-  // SECTION 6: LOGOUT HANDLER
-  // ============================================================
+  // LOGOUT
   const handleLogout = () => {
     localStorage.clear();
     navigate('/login');
   };
 
 
-  // ============================================================
-  // SECTION 7: USER INTERFACE (JSX)
-  // ============================================================
   return (
     <div className="admin-container">
       <header className="admin-main-header">
@@ -142,7 +121,6 @@ const Admin = () => {
 
       <div className="admin-grid-2x2">
 
-        {/* TOP LEFT: Console Detections (system_logs) */}
         <section className="admin-section">
           <span className="section-pill color-grey">Console Detections</span>
           <div className="log-list">
@@ -155,7 +133,6 @@ const Admin = () => {
           </div>
         </section>
 
-        {/* TOP RIGHT: Trade Buffer (pending_transactions) */}
         <section className="admin-section">
           <span className="section-pill color-blue">Trade Buffer</span>
           <div className="trade-approval-list">
@@ -184,7 +161,6 @@ const Admin = () => {
           </div>
         </section>
 
-        {/* BOTTOM LEFT: System Accounts (users) */}
         <section className="admin-section">
           <span className="section-pill color-purple">System Accounts</span>
           <div className="account-stats">
@@ -196,7 +172,6 @@ const Admin = () => {
           </div>
         </section>
 
-        {/* BOTTOM RIGHT: Platform Revenue (transactions) */}
         <section className="admin-section">
           <span className="section-pill color-green">Platform Revenue</span>
           <div className="financial-card">

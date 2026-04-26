@@ -1,48 +1,41 @@
-import express from 'express';                             // <--- Use 'import', not 'require'
+import express from 'express';
 const router = express.Router();
 import db, { logAction } from '../database/database.js';
 import authenticateToken from '../middleware/authMiddleware.js';
+import jwt from 'jsonwebtoken';
+const secretKey = 'your_super_secret_key';
 
 
-// ======================================================================================================================== //
 
-//============================================================ //
-// TRADING OPERATIONS ROUTES //
-//============================================================ //
-
-// ======================================================================================================================== //
-
-// SUBMIT TO BUFFER (PENDING APPROVAL) [BUY or SELL trade]
-
+// SUBMIT TRADE TO BUFFER 
 router.post('/submit-to-buffer', authenticateToken, async (req, res) => {
   const { user_id, symbol, type, entry_price, quantity } = req.body;
-  
-  // 1. Verify that the logged-in user matches the trade owner
+  console.log("Received Trade Request:", req.body);
+
+  // VERIFY USER ID MATCHES TOKEN 
   if (req.user.id !== parseInt(user_id)) {
-      return res.status(403).json({ error: "Access Denied: You cannot submit trades for another user." });
+      return res.status(403).json({ error: "Access Denied" });
   }
 
   try {
-    const sql = `INSERT INTO pending_transactions (user_id, symbol, type, entry_price, quantity, status) 
+ // INSERT INTO PENDING TRANSACTIONS TABLE
+    const sql = `INSERT INTO pending_transactions 
+                 (user_id, symbol, type, entry_price, quantity, status) 
                  VALUES (?, ?, ?, ?, ?, 'AWAITING AUTHORISATION')`;
     
     await db.query(sql, [user_id, symbol, type, entry_price, quantity]);
     
-    await logAction(user_id, 'ORDER_PENDING', `User requested ${type} ${quantity}x ${symbol} at $${entry_price}`);
-    res.json({ message: "Trade submitted for authorisation" });
+    await logAction(user_id, 'ORDER_PENDING', `Requested ${type} ${quantity} ${symbol}`);
+    
+    res.status(201).json({ message: "Trade submitted for authorisation" });
     
   } catch (err) {
-    await logAction(user_id, 'BUFFER_ERROR', `Failed to add trade to buffer: ${err.message}`);
+    console.error("Database Error:", err);
     res.status(500).json({ error: "Database buffer error" });
   }
 });
 
-// ======================================================================================================================== //
-
-// ======================================================================================================================== //
-
-// RECEIPT-SPECIFIC USER DATA FETCH (FOR BALANCE & RISK CALCULATION)
-
+// GET USER DETAILS FOR TRADE RECEIPT 
 router.get('/user-details/:id', async (req, res) => {
   try {
     const [rows] = await db.query("SELECT id, full_name, balance FROM users WHERE id = ?", [req.params.id]);
@@ -56,16 +49,6 @@ router.get('/user-details/:id', async (req, res) => {
     res.status(500).json({ error: "Database error: " + err.message });
   }
 });
-
-// ======================================================================================================================== //
-
-
-
-
-// ======================================================================================================================== //
-
-
-
 
 
 export default router;

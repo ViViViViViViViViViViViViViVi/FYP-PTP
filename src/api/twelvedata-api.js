@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-const TWELVE_KEY = '3e8fd5750eaf47b0908328222611507d';
+// FALLBACK CHART HISTORY API - USED WHEN FINNHUB OR POLYGON ARE DOWN OR RATE-LIMITED 
+
+const TWELVE_KEY = import.meta.env.VITE_TWELVE_KEY;
 
 export const getChartHistory = async (symbol) => {
-  // We'll calculate the end_date right here in the service
   const now = new Date();
   const coeff = 1000 * 60 * 5;
   const roundedUK = new Date(Math.floor(now.getTime() / coeff) * coeff);

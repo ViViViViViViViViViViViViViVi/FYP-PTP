@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/login.css";
+export const secretKey = 'your_super_secret_key';
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -12,46 +13,42 @@ export default function Login() {
     e.preventDefault();
     setErrorMessage("");
 
-
-    // ======================================================================================================================== //
-
     try {
-      const loginResponse = await fetch('http://localhost:5000/api/login', {    // <--- calls the /login route on your login_routes.js file in the backend to authenticate the user
-        method: 'POST',                                                         // <--- Uses POST method to send the email and password to the server for authentication
-        headers: { 'Content-Type': 'application/json' },                        // <--- Sets the content type to JSON so route can understand the incoming data
-        body: JSON.stringify({ email, password })                               // <--- Converts the email and password into a JSON string to be sent in the body of the request
+      const loginResponse = await fetch('http://localhost:5000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
       });
 
       const loginData = await loginResponse.json();
 
-      if (loginResponse.ok) {                                                   // <--- If the response is successful 
-        const { user } = loginData;                                             // <--- Destructures the user data from the response for easier access
-        localStorage.setItem('user_id', user.id);                               // <--- Stores the user ID in localStorage 
-        localStorage.setItem('user_name', user.full_name);                      // <--- Stores the user's full name in localStorage 
-        localStorage.setItem('user_email', user.email);                         // <--- Stores the user's email in localStorage
-        localStorage.setItem('user_balance', user.balance);                     // <--- Stores the user's balance in localStorage
+      // SUCCESSFUL LOGIN
+      
+      if (loginResponse.ok) {
+        const { user, token } = loginData;
+        localStorage.setItem('user_id', user.id);
+        localStorage.setItem('user_name', user.full_name);
+        localStorage.setItem('user_email', user.email);
+        localStorage.setItem('user_balance', user.balance);
+        localStorage.setItem('token', token);
 
-        //                                                                                            [ ADMIN CHECK ]
+        // ADMIN CHECK
+        const adminFlag = user.is_admin === 1 || user.is_admin === true;
+        localStorage.setItem('is_admin', adminFlag ? 'true' : 'false');
 
-        const adminFlag = user.is_admin === 1 || user.is_admin === true;        // <--- Checks if admin flag is set to true (1) in the user data returned from the server
-        localStorage.setItem('is_admin', adminFlag ? 'true' : 'false');         // <--- Stores the admin flag in localStorage 
-
-        if (adminFlag) {                                                        // <--- If the user is an admin...
-          navigate("/admin");                                                   // <--- Redirects to the admin dashboard                  
-        } else {                                                                // <--- If the user is not an admin...
-          navigate("/home");                                                    // <--- Redirects to the user homepage
+        if (adminFlag) {
+          navigate("/admin");
+        } else {
+          navigate("/home");
         }
       } else {
-        setErrorMessage(loginData.error || "Invalid Credentials");              // <--- if database is working but email/password is wrong then show error message from server, otherwise show generic error message
+        setErrorMessage(loginData.error || "Invalid Credentials");
       } 
     } catch (err) {
-      setErrorMessage("Error: Backend server is not responding.");              // <--- shows if there is a database connection error or if the server is not running at all
-      }
+      setErrorMessage("Error: Backend server is not responding.");
+    }
   };
 
-  // ======================================================================================================================== //
-  
-//                                                  [LOGIN IN PAGE]]
 
   return (
     <div className="login-container">
@@ -88,5 +85,3 @@ export default function Login() {
     </div>
   );
 }
-
-  // ======================================================================================================================== //

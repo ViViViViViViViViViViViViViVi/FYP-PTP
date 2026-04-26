@@ -3,9 +3,8 @@ const router = express.Router();
 import db, { logAction } from '../database/database.js';
 import bcrypt from 'bcrypt';
 
-// ============================================================
-// ROUTE 1: UPDATE PROFILE (Name, Email, DOB)
-// ============================================================
+
+// UPDATE PROFILE 
 router.put('/update-profile/:id', async (req, res) => {
   const { fullName, email, dob } = req.body;
   const userId = req.params.id;
@@ -21,33 +20,27 @@ router.put('/update-profile/:id', async (req, res) => {
   }
 });
 
-// ============================================================
-// ROUTE 2: CHANGE PASSWORD (The High-Security Handshake)
-// ============================================================
+
+// CHANGE PASSWORD 
 router.put('/change-password/:id', async (req, res) => {
   const { petName, lastFourPhone, currentPassword, newPassword } = req.body;
   const userId = req.params.id;
 
   try {
-    // 1. Fetch the user's current security data
     const [rows] = await db.query("SELECT * FROM users WHERE id = ?", [userId]);
     if (rows.length === 0) return res.status(404).json({ error: "User not found" });
     
     const user = rows[0];
 
-    // 2. SECURITY CHECK: Verify Pet Name and Phone Digits
-    // We compare lowercase for the pet name to avoid "Rex" vs "rex" issues
     const phoneSuffix = user.phone.slice(-4);
     if (user.pet_name.toLowerCase() !== petName.toLowerCase() || phoneSuffix !== lastFourPhone) {
       await logAction(userId, 'SECURITY_FAIL', `Failed security question handshake`);
       return res.status(401).json({ error: "Security verification failed. Details do not match our records." });
     }
 
-    // 3. AUTH CHECK: Verify Current Password
     const isMatch = await bcrypt.compare(currentPassword, user.password);
     if (!isMatch) return res.status(401).json({ error: "Current password incorrect." });
 
-    // 4. UPDATE: Hash New Password and Save
     const hashedNew = await bcrypt.hash(newPassword, 10);
     await db.query("UPDATE users SET password = ? WHERE id = ?", [hashedNew, userId]);
 
@@ -59,9 +52,8 @@ router.put('/change-password/:id', async (req, res) => {
   }
 });
 
-// ============================================================
-// ROUTE 3: DELETE ACCOUNT (The Nuclear Option)
-// ============================================================
+
+// DELETE ACCOUNT
 router.delete('/delete-account/:id', async (req, res) => {
   const userId = req.params.id;
   try {

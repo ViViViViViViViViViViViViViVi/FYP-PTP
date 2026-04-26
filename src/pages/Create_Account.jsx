@@ -58,10 +58,8 @@ export default function Create_Account() {
   return (
     <div className="create-account-page"> 
       <div className="create-box">
-        {/* Back Button */}
-        {step > 1 && <button onClick={prevStep} className="back-btn">← Back</button>}
 
-        {/* Step 1: Personal Details */}
+        {step > 1 && <button onClick={prevStep} className="back-btn">← Back</button>}
         {step === 1 && (
           <>
             <h2 className="form-title">Create Account</h2>
@@ -93,7 +91,7 @@ export default function Create_Account() {
           </>
         )}
 
-        {/* Step 2: Security */}
+   
         {step === 2 && (
           <div className="step-content">
             <h2 className="welcome-text">Welcome, {formData.firstName || "User"}!</h2>
@@ -116,7 +114,6 @@ export default function Create_Account() {
           </div>
         )}
 
-        {/* Step 3: Experience */}
         {step === 3 && (
           <div className="step-content">
             <h2 className="form-title">Experience</h2>
@@ -135,7 +132,7 @@ export default function Create_Account() {
           </div>
         )}
 
-        {/* Step 4: Final Disclaimer */}
+
         {step === 4 && (
           <div className="step-content">
             <h2 className="form-title">Almost Done</h2>

@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import './app.css';
 
-// Components
+// COMPONENTS
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
-// Pages
+// PAGES
 import Home from './pages/Home';
 import CreateAccount from './pages/Create_Account';
 import Login from './pages/Login';
@@ -18,14 +18,14 @@ import Welcome from './pages/Welcome';
 import Settings from './pages/Settings';
 //import About from './pages/About';
 
-// --- Protected Route (Any Logged In User) ---
+
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = localStorage.getItem('user_id'); 
   if (!isAuthenticated) return <Navigate to="/login" replace />;
   return children;
 };
 
-// --- Admin Only Route ---
+// ADMIN
 const AdminRoute = ({ children }) => {
   const isAuthenticated = localStorage.getItem('user_id');
   const isAdmin = localStorage.getItem('is_admin') === 'true';
@@ -55,26 +55,20 @@ function App() {
 
   const pageName = pathMap[location.pathname] || 'Welcome';
   const isAdmin = localStorage.getItem('is_admin') === 'true';
-
-  // --- NEW: LOGIC TO HIDE NAVBAR ---
-  // Add any path to this array where you DON'T want the Navbar to show
   const hideNavbarPaths = ['/admin', '/login', '/create-account','/welcome'];
   const shouldHideNavbar = hideNavbarPaths.includes(location.pathname);
 
   return (
     <div>
-      {/* 1. Only show Navbar if we are NOT on a hidden path */}
       {!shouldHideNavbar && <Navbar setSymbol={setSymbol} pageName={pageName} />}
       
       
       <Routes>
-        {/* PUBLIC ROUTES */}
         <Route path="/" element={<Navigate to="/welcome" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/create-account" element={<CreateAccount />} />
         <Route path="/welcome" element={<Welcome />} />
         
-        {/* ADMIN ROUTE */}
         <Route 
           path="/admin" 
           element={
@@ -84,7 +78,6 @@ function App() {
           } 
         />
 
-        {/* TRADING ROUTES */}
         <Route 
           path="/home" 
           element={

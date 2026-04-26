@@ -1,11 +1,13 @@
-import express from 'express';                             
+import express from 'express';
 const router = express.Router();
 import db, { logAction } from '../database/database.js';
 
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000/api'; 
+const API_BASE_URL = 'http://localhost:5000/api';
 
+
+// FETCH HOME PAGE DATA FOR A USER
 export const getHomeData = async (userId) => {
     try {
         const response = await axios.get(`${API_BASE_URL}/home/status/${userId}`);
@@ -16,6 +18,8 @@ export const getHomeData = async (userId) => {
     }
 };
 
+
+// LOG A USER ACTION
 export const logUserAction = async (userId, action) => {
     return await axios.post(`${API_BASE_URL}/home/log-action`, { userId, action });
 };
