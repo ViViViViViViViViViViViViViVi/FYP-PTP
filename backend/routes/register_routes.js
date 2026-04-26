@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
       hashedPassword, 
       securityFull, 
       tradingKnowledge, 
-      '0000-00-00', 
+      '2001-01-01', 
       1000.00,      
       1000.00,      
       0             

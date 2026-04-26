@@ -151,7 +151,7 @@ const Settings = () => {
 
           {activeTab === 'danger' && (
             <section className="settings-section">
-              <h3 style={{color: '#ef4444'}}>Danger Zone</h3>
+              <h3>Account Deletion</h3>
               <div className="danger-box">
                 <h4>Delete Account</h4>
                 <p>Once you delete your account, there is no going back.</p>

@@ -1,18 +1,18 @@
 .settings-pill {
-  flex-direction: row !important; 
-  padding: 0 !important;        
-  overflow: hidden;             
-  height: 100%;                 
+  flex-direction: row !important;
+  padding: 0 !important;
+  overflow: hidden;
+  height: 100%;
 }
 
 .settings-sidebar {
-  flex: 1; 
-  background: #1a1a1a;          
+  flex: 1;
+  background: #1a1a1a;
   border-right: 1px solid #333;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 50px 30px;           
+  padding: 50px 30px;
   box-sizing: border-box;
 }
 
@@ -20,7 +20,7 @@
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #64748b;
+  color: #ffffff;
   margin-bottom: 40px;
 }
 
@@ -33,7 +33,7 @@
 .nav-item {
   background: transparent;
   border: none;
-  color: #94a3b8;
+  color: #ffffff;
   text-align: left;
   padding: 14px 18px;
   border-radius: 12px;
@@ -43,20 +43,20 @@
 }
 
 .nav-item:hover {
-  color: #fff;
+  color: #ffffff;
   background: rgba(255, 255, 255, 0.05);
 }
 
 .nav-item.active {
   background: #2d2d2d;
-  color: #fff;
+  color: #ffffff;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 .sidebar-logout {
   background: transparent;
   border: 1px solid #ef4444;
-  color: #ef4444;
+  color: #ffffff;
   padding: 12px;
   border-radius: 12px;
   cursor: pointer;
@@ -73,15 +73,16 @@
 
 .settings-content {
   flex: 3;
-  padding: 60px 80px;          
+  padding: 60px 80px;
   background: #242424;
-  overflow-y: auto;             
+  overflow-y: auto;
   box-sizing: border-box;
 }
 
 .settings-content::-webkit-scrollbar {
   width: 8px;
 }
+
 .settings-content::-webkit-scrollbar-thumb {
   background: #333;
   border-radius: 10px;
@@ -89,13 +90,13 @@
 
 .settings-section h3 {
   font-size: 2.2rem;
-  color: white;
+  color: #ffffff;
   margin: 0 0 10px 0;
   letter-spacing: -1px;
 }
 
 .section-desc {
-  color: #64748b;
+  color: #ffffff;
   margin-bottom: 50px;
   font-size: 1rem;
 }
@@ -116,7 +117,7 @@
 
 .input-group label {
   font-size: 0.75rem;
-  color: #94a3b8;
+  color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   font-weight: 600;
@@ -127,7 +128,7 @@
   border: 1px solid #333;
   padding: 15px;
   border-radius: 12px;
-  color: white;
+  color: #ffffff;
   font-size: 1rem;
   transition: border-color 0.2s;
 }
@@ -160,7 +161,7 @@
 
 .save-btn {
   background: #10b981;
-  color: #000;
+  color: #000000;
   border: none;
   padding: 15px 40px;
   border-radius: 12px;
@@ -178,7 +179,7 @@
 
 .delete-btn {
   background: #ef4444;
-  color: white;
+  color: #ffffff;
   border: none;
   padding: 14px 28px;
   border-radius: 10px;
