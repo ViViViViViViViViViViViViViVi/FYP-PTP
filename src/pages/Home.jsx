@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import StockChart from '../components/StockChart';
-
-// API IMPORTS
 import { getLiveQuote, getCompanyProfile } from '../api/finnhub-api';
 import { logUserAction } from '../server/request_server';
 

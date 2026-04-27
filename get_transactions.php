@@ -1,16 +1,16 @@
 <?php
 
-header("Access-Control-Allow-Origin: http://localhost:5173"); // Allow your Vite app
+header("Access-Control-Allow-Origin: http://localhost:5173"); 
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
-// ... your database connection to user_system ...
+
 
 $host = "localhost";
 $user = "root";
 $pass = "";
-$db   = "user_system"; // CHANGE THIS to your actual DB name
+$db   = "user_system"; 
 
 $conn = new mysqli($host, $user, $pass, $db);
 
@@ -18,7 +18,6 @@ if ($conn->connect_error) {
     die(json_encode(["error" => "Connection failed"]));
 }
 
-// Get the user_id sent from React
 $user_id = isset($_GET['user_id']) ? $_GET['user_id'] : null;
 
 if ($user_id) {
